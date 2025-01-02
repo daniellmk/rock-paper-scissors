@@ -101,8 +101,10 @@ function playRound(humanChoice, compChoice) {
 function findWinner() {
     if (humanScore > computerScore){
         alert (`You won! ${humanScore} to ${computerScore}!`)
-    } else {
+    } else if (humanScore < computerScore){
         alert (`You Lost! ${humanScore} to ${computerScore}!`)
     }
-
+    else {
+      alert (`It was a tie! ${humanScore} to ${computerScore}!`)
+    }
 }
