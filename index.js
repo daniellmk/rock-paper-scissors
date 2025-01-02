@@ -9,15 +9,25 @@ playGame()
 
 //plays 5 rounds
 function playGame() {
-    playRound()
+    getplayerchoice()
+    genCompChoice()
+    playRound(humanChoice, compChoice)
     console.log(compChoice)
-    playRound()
+    getplayerchoice()
+    genCompChoice()
+    playRound(humanChoice, compChoice)
     console.log(compChoice)
-    playRound()
+    getplayerchoice()
+    genCompChoice()
+    playRound(humanChoice, compChoice)
     console.log(compChoice)
-    playRound()
+    getplayerchoice()
+    genCompChoice()
+    playRound(humanChoice, compChoice)
     console.log(compChoice)
-    playRound()
+    getplayerchoice()
+    genCompChoice()
+    playRound(humanChoice, compChoice)
     console.log(compChoice)
     findWinner()
 }
@@ -41,9 +51,7 @@ function getplayerchoice() {
   }
 
 //finds winner for the round and updates score
-function playRound() {
-    getplayerchoice()
-    genCompChoice()
+function playRound(humanChoice, compChoice) {
     if (humanChoice == "rock") {
         switch (compChoice) {
           case "rock": 
