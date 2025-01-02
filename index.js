@@ -1,10 +1,13 @@
+//define vars
 let humanScore = computerScore = 0;
 let humanChoice;
 let compChoice;
 let roundWinner;
 
+//start game
 playGame()
 
+//plays 5 rounds
 function playGame() {
     playRound()
     console.log(compChoice)
@@ -18,6 +21,8 @@ function playGame() {
     console.log(compChoice)
     findWinner()
 }
+
+//generates the computers choice
 function genCompChoice() {
     compChoice = Math.floor(Math.random() * 3)
     if (compChoice == 0) {
@@ -28,10 +33,14 @@ function genCompChoice() {
         compChoice = "scissors"
       }
 }
+
+//gets the humans choice
 function getplayerchoice() {
     humanChoice = prompt("Choose rock, paper, or scissors")
     humanChoice = humanChoice.toLowerCase()
   }
+
+//finds winner for the round and updates score
 function playRound() {
     getplayerchoice()
     genCompChoice()
@@ -79,6 +88,8 @@ function playRound() {
       }
     }
 }
+
+//finds the final winner after 5 rounds
 function findWinner() {
     if (humanScore > computerScore){
         alert (`You won! ${humanScore} to ${computerScore}!`)
