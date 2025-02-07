@@ -7,31 +7,6 @@ let roundWinner;
 //start game
 playGame()
 
-//plays 5 rounds
-function playGame() {
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    findWinner()
-}
-
 //generates the computers choice
 function genCompChoice() {
     compChoice = Math.floor(Math.random() * 3)
