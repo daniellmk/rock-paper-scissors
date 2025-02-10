@@ -74,6 +74,8 @@ function makeCompChoiceVisible() {
 //finds winner for the round and updates score
 function findWinner(playerChoice, compChoice) {
   if (playerChoice === compChoice) {
+      humanScore++
+      computerScore++
       roundWinner = "tie";
   }
   else if (
@@ -110,7 +112,7 @@ function checkFinalWinner() {
     rock.disabled = true;
     paper.disabled = true;
     scissors.disabled = true;
-    if (humanScore === compScore) {
+    if (humanScore === computerScore) {
       scoreSection.innerHTML = `Tie game! <br>`
       resetButton()
     } else if (humanScore > computerScore) {
