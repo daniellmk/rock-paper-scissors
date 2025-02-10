@@ -4,9 +4,6 @@ let humanChoice;
 let compChoice;
 let roundWinner;
 
-//start game
-playGame()
-
 //generates the computers choice
 function genCompChoice() {
     compChoice = Math.floor(Math.random() * 3)
