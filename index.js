@@ -4,107 +4,134 @@ let humanChoice;
 let compChoice;
 let roundWinner;
 
-//start game
-playGame()
+//retrives player choice from buttons
+document.getElementById("rock").addEventListener("click", () => {
+  humanChoice = "rock";
+  makeCompChoiceVisible()
+  genCompChoice()
+  findWinner("rock",compChoice)
+  displayWinner()
+  checkFinalWinner()
+});
+document.getElementById("paper").addEventListener("click", () => {
+  humanChoice = "paper";
+  makeCompChoiceVisible()
+  genCompChoice()
+  findWinner("paper",compChoice)
+  displayWinner()
+  checkFinalWinner()
+});
+document.getElementById("scissors").addEventListener("click", () => {
+  humanChoice = "scissors";
+  makeCompChoiceVisible()
+  genCompChoice()
+  findWinner("scissors",compChoice)
+  displayWinner()
+  checkFinalWinner()
+});
 
-//plays 5 rounds
-function playGame() {
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    getplayerchoice()
-    genCompChoice()
-    playRound(humanChoice, compChoice)
-    console.log(compChoice)
-    findWinner()
-}
 
-//generates the computers choice
+//generates the computers choice and hides others
+const rockCompButton = document.getElementById('rockCompButton');
+const paperCompButton = document.getElementById('paperCompButton');
+const scissorsCompButton = document.getElementById('scissorsCompButton');
+const rockComp = document.getElementById('rockComp');
+const paperComp = document.getElementById('paperComp');
+const scissorsComp = document.getElementById('scissorsComp');
 function genCompChoice() {
     compChoice = Math.floor(Math.random() * 3)
     if (compChoice == 0) {
         compChoice = "rock"
+        paperComp.style.visibility = 'hidden';
+        scissorsComp.style.visibility = 'hidden';
+        paperCompButton.disabled = true
+        scissorsCompButton.disabled = true
       } else if (compChoice == 1) {
         compChoice = "paper"
+        rockComp.style.visibility = 'hidden';
+        scissorsComp.style.visibility = 'hidden';
+        rockCompButton.disabled = true
+        scissorsCompButton.disabled = true
       } else {
         compChoice = "scissors"
+        paperComp.style.visibility = 'hidden';
+        rockComp.style.visibility = 'hidden';
+        paperCompButton.disabled = true
+        rockCompButton.disabled = true
       }
 }
 
-//gets the humans choice
-function getplayerchoice() {
-    humanChoice = prompt("Choose rock, paper, or scissors")
-    humanChoice = humanChoice.toLowerCase()
-  }
+//makes all comp buttons visible for next round
+function makeCompChoiceVisible() {
+  rockComp.style.visibility = 'visible';
+  paperComp.style.visibility = 'visible';
+  scissorsComp.style.visibility = 'visible';
+  rockCompButton.disabled = false;
+  paperCompButton.disabled = false;
+  scissorsCompButton.disabled = false;
+}
 
 //finds winner for the round and updates score
-function playRound(humanChoice, compChoice) {
-    if (humanChoice == "rock") {
-        switch (compChoice) {
-          case "rock": 
-            alert ("tie");
-            break;
-          case "paper":
-            alert ("you lost");
-            computerScore++
-            break;
-          case "scissors":
-            alert("you won");
-            humanScore++
-            break;
-        }
-      } else if (humanChoice == "paper") {
-          switch (compChoice) {
-            case "rock": 
-              alert ("you won");
-              humanScore++
-              break;
-            case "paper":
-              alert ("tie");
-              break;
-            case "scissors":
-              alert("you lost");
-              computerScore++
-              break;
-          }
-      } else {
-        switch (compChoice) {
-          case "rock": 
-            alert ("you lost");
-            computerScore++
-            break;
-          case "paper":
-            alert ("you won");
-            humanScore++
-            break;
-          case "scissors":
-            alert("tie");
-            break;
-      }
-    }
+function findWinner(playerChoice, compChoice) {
+  if (playerChoice === compChoice) {
+      roundWinner = "tie";
+  }
+  else if (
+      (playerChoice === "rock" && compChoice === "scissors") ||
+      (playerChoice === "scissors" && compChoice === "paper") ||
+      (playerChoice === "paper" && compChoice === "rock")
+  ) {
+      humanScore++;
+      roundWinner="human";
+  } else {
+  computerScore++;
+  roundWinner="computer";
+  }
 }
 
-//finds the final winner after 5 rounds
-function findWinner() {
-    if (humanScore > computerScore){
-        alert (`You won! ${humanScore} to ${computerScore}!`)
-    } else if (humanScore < computerScore){
-        alert (`You Lost! ${humanScore} to ${computerScore}!`)
+//displays winner after one round
+const scoreSection = document.getElementById('scoreDisplay')
+function displayWinner() {
+  if (roundWinner === "tie"){
+    scoreSection.innerHTML = `It was a tie! <br> Human Score: ${humanScore} <br> Computer Score: ${computerScore}`
+  }else if (roundWinner === "human") {
+    scoreSection.innerHTML = `You Won! <br> Human Score: ${humanScore} <br> Computer Score: ${computerScore}`
+  }else{
+    scoreSection.innerHTML = `You Lost! <br> Human Score: ${humanScore} <br> Computer Score: ${computerScore}`
+  }
+}
+
+//checks if anyone has a score of 5 & disables buttons
+const rock = document.getElementById('rock');
+const paper = document.getElementById('paper');
+const scissors = document.getElementById('scissors');
+function checkFinalWinner() {
+  if (humanScore === 5 || computerScore === 5){
+    rock.disabled = true;
+    paper.disabled = true;
+    scissors.disabled = true;
+    if (humanScore === compScore) {
+      scoreSection.innerHTML = `Tie game! <br>`
+      resetButton()
+    } else if (humanScore > computerScore) {
+      scoreSection.innerHTML = `Congrats Champ, You Won! <br>`
+      resetButton()
+    } else {
+      scoreSection.innerHTML = `Bested by the computer, You Lost! <br>`
+      resetButton()
     }
-    else {
-      alert (`It was a tie! ${humanScore} to ${computerScore}!`)
-    }
+  }
+}
+
+function resetButton() {
+  scoreSection.innerHTML+='<button onClick="reset()" id="resetButton">Play Again!</button>'
+}
+
+function reset() {
+  rock.disabled = false;
+  paper.disabled = false;
+  scissors.disabled = false;
+  makeCompChoiceVisible()
+  humanScore = computerScore = 0
+  scoreSection.innerHTML = ''
 }
