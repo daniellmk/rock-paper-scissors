@@ -32,6 +32,9 @@ document.getElementById("scissors").addEventListener("click", () => {
 
 
 //generates the computers choice and hides others
+const rockCompButton = document.getElementById('rockCompButton');
+const paperCompButton = document.getElementById('paperCompButton');
+const scissorsCompButton = document.getElementById('scissorsCompButton');
 const rockComp = document.getElementById('rockComp');
 const paperComp = document.getElementById('paperComp');
 const scissorsComp = document.getElementById('scissorsComp');
@@ -41,14 +44,20 @@ function genCompChoice() {
         compChoice = "rock"
         paperComp.style.visibility = 'hidden';
         scissorsComp.style.visibility = 'hidden';
+        paperCompButton.disabled = true
+        scissorsCompButton.disabled = true
       } else if (compChoice == 1) {
         compChoice = "paper"
         rockComp.style.visibility = 'hidden';
         scissorsComp.style.visibility = 'hidden';
+        rockCompButton.disabled = true
+        scissorsCompButton.disabled = true
       } else {
         compChoice = "scissors"
         paperComp.style.visibility = 'hidden';
         rockComp.style.visibility = 'hidden';
+        paperCompButton.disabled = true
+        rockCompButton.disabled = true
       }
 }
 
@@ -57,6 +66,9 @@ function makeCompChoiceVisible() {
   rockComp.style.visibility = 'visible';
   paperComp.style.visibility = 'visible';
   scissorsComp.style.visibility = 'visible';
+  rockCompButton.disabled = false;
+  paperCompButton.disabled = false;
+  scissorsCompButton.disabled = false;
 }
 
 //finds winner for the round and updates score
@@ -121,9 +133,7 @@ function reset() {
   rock.disabled = false;
   paper.disabled = false;
   scissors.disabled = false;
-  rockComp.style.visibility = 'visible';
-  paperComp.style.visibility = 'visible';
-  scissorsComp.style.visibility = 'visible';
+  makeCompChoiceVisible()
   humanScore = computerScore = 0
   scoreSection.innerHTML = ''
 }
