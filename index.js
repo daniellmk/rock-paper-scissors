@@ -11,6 +11,7 @@ document.getElementById("rock").addEventListener("click", () => {
   genCompChoice()
   findWinner("rock",compChoice)
   displayWinner()
+  checkFinalWinner()
 });
 document.getElementById("paper").addEventListener("click", () => {
   humanChoice = "paper";
@@ -18,6 +19,7 @@ document.getElementById("paper").addEventListener("click", () => {
   genCompChoice()
   findWinner("paper",compChoice)
   displayWinner()
+  checkFinalWinner()
 });
 document.getElementById("scissors").addEventListener("click", () => {
   humanChoice = "scissors";
@@ -25,6 +27,7 @@ document.getElementById("scissors").addEventListener("click", () => {
   genCompChoice()
   findWinner("scissors",compChoice)
   displayWinner()
+  checkFinalWinner()
 });
 
 
@@ -86,4 +89,41 @@ function displayWinner() {
   }else{
     scoreSection.innerHTML = `You Lost! <br> Human Score: ${humanScore} <br> Computer Score: ${computerScore}`
   }
+}
+
+//checks if anyone has a score of 5 & disables buttons
+const rock = document.getElementById('rock');
+const paper = document.getElementById('paper');
+const scissors = document.getElementById('scissors');
+function checkFinalWinner() {
+  if (humanScore === 5 || computerScore === 5){
+    rock.disabled = true;
+    paper.disabled = true;
+    scissors.disabled = true;
+    if (humanScore === compChoice) {
+      scoreSection.innerHTML = `Tie game! <br>`
+      resetButton()
+    } else if (humanScore > computerScore) {
+      scoreSection.innerHTML = `Congrats Champ, You Won! <br>`
+      resetButton()
+    } else {
+      scoreSection.innerHTML = `Bested by the computer, You Lost! <br>`
+      resetButton()
+    }
+  }
+}
+
+function resetButton() {
+  scoreSection.innerHTML+='<button onClick="reset()" id="resetButton">Play Again!</button>'
+}
+
+function reset() {
+  rock.disabled = false;
+  paper.disabled = false;
+  scissors.disabled = false;
+  rockComp.style.visibility = 'visible';
+  paperComp.style.visibility = 'visible';
+  scissorsComp.style.visibility = 'visible';
+  humanScore = computerScore = 0
+  scoreSection.innerHTML = ''
 }
